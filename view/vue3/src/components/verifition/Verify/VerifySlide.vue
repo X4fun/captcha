@@ -40,14 +40,14 @@
         </div>
     </div>
 </template>
-<script type="text/babel">
+<script >
     /**
      * VerifySlide
      * @description 滑块
      * */
     import {aesEncrypt} from "./../utils/ase"
     import {resetSize} from './../utils/util'
-    import {reqGet,reqCheck}  from "./../api/index"
+    import {reqCode,reqCheckCode}  from "./../api/index"
  import { computed, onMounted, reactive, ref,watch,nextTick,toRefs, watchEffect,getCurrentInstance} from 'vue';
     //  "captchaType":"blockPuzzle",
     export default {
@@ -247,7 +247,7 @@
                             "pointJson":secretKey.value ? aesEncrypt(JSON.stringify({x:moveLeftDistance,y:5.0}),secretKey.value):JSON.stringify({x:moveLeftDistance,y:5.0}),
                             "token":backToken.value
                         }
-                        reqCheck(data).then(res=>{
+                        reqCheckCode(data).then(res=>{
                             if (res.repCode == "0000") {
                                 moveBlockBackgroundColor.value = '#5cb85c'
                                 leftBarBorderColor.value = '#5cb85c'
@@ -318,7 +318,7 @@
                     let data = {
                         captchaType:captchaType.value
                     }
-                    reqGet(data).then(res=>{
+                    reqCode(data).then(res=>{
                         if (res.repCode == "0000") {
                             backImgBase.value = res.repData.originalImageBase64
                             blockBackImgBase.value = res.repData.jigsawImageBase64

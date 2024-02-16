@@ -25,3 +25,31 @@ export function reqCheck(data) {
 }
 
 
+/////////////////////////////////////////////
+// 获取验证图片  以及token
+// todo
+export function reqCode() {
+    return request({
+      url: "/code",
+      method: "get"
+    })
+  }
+  
+  // todo
+  // 滑动或者点选验证
+  export function reqCheckCode(data) {
+    return request({
+      url: "/code/check",
+      method: "post",
+      data
+    })
+  }
+  
+  export function loginForm(data) {
+    return request({
+      url: "/auth/login",
+      method: "post",
+      data
+    })
+  }
+  

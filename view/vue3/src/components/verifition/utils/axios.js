@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://captcha.anji-plus.com/captcha-api';
+// config  fun-gateway:9000 support verifySlide mode
+axios.defaults.baseURL = 'http://fun-gateway:9000';
+// 'https://captcha.anji-plus.com/captcha-api';
 
 const service = axios.create({
   timeout: 40000,

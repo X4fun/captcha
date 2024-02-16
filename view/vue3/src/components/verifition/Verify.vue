@@ -26,7 +26,7 @@
     </div>
 </div>
 </template>
-<script type="text/babel">
+<script >
     /**
      * Verify 验证码组件
      * @description 分发验证码使用

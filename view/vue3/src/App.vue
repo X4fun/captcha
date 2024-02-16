@@ -1,42 +1,63 @@
 <template>
   <button @click="onShow('blockPuzzle')">滑块</button>
   <button @click="onShow('clickWord')">点击文字</button>
+  <!-- note @error, @success 为子组件的回调函数 -->
   <Verify
-      mode="pop"
-      :captchaType="captchaType"
-      :imgSize="{width:'400px',height:'200px'}"
-      ref="verify"
-    ></Verify>
+    @error="verifyError"
+    @sucess="verifySuccess"
+    mode="pop"
+    :captchaType="captchaType"
+    :imgSize="{ width: '400px', height: '200px' }"
+    ref="verify"
+  ></Verify>
 </template>
 
 <script>
-import { ref,getCurrentInstance} from 'vue'
-import Verify from '@/components/verifition/Verify'
+import { ref, getCurrentInstance } from "vue";
+import Verify from "@/components/verifition/Verify";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Verify
+    Verify,
   },
-  setup(props,context){
-    const verify = ref(null)
-    const captchaType = ref('')
-    const onShow = (type)=>{
-      captchaType.value = type
-      verify.value.show()
-    }
-    const handleSuccess = (res)=>{
-      console.log(res);
-      console.log('sucess');
-    }
+  setup(props, context) {
+    const verify = ref(null);
+    const captchaType = ref("");
+    const onShow = (type) => {
+      captchaType.value = type;
+      // note : verify show method  
+      verify.value.show();
+    };
+    /**
+     *  note 
+     *  验证码校验成功的返回函数
+     */
+    const verifySuccess = (data: string) => {
+      console.log("<-- 验证码校验成功--> ");
+      console.log(data);
+      // console.log(data)
+      // todo  login
+      // loginFormData.code = data.captchaVerification
+      // console.log(loginFormData)
+      handleLogin(data);
+    };
+
+    /**
+     * note 
+     * 验证码校验失败  的 callback
+     */
+    const verifyError = () => {
+      console.log("验证码校验失败, 内容如下-----");
+      // console.log(data.tipWords)
+      ElMessage.error("验证码失效或校验失败, 请重试");
+    };
     return {
       verify,
-      handleSuccess,
       onShow,
-      captchaType
-    }
-    
-  }
-}
+      captchaType,
+    };
+  },
+};
 </script>
 
 <style lang="less">
